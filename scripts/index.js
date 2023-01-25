@@ -26,8 +26,8 @@ function closePopup() {
 }
 
 /* submit handler */
-function formSubmitHandler (evt) {
-	evt.preventDefault(); 
+function formSubmitHandler(evt) {
+    evt.preventDefault();
     nameProfile.textContent = nameInput.value;
     descriptionProfile.textContent = descriptionInput.value;
     closePopup(popup);
@@ -47,11 +47,3 @@ form.addEventListener('keypress', saveEnter);
 editButton.addEventListener('click', showPopup);
 closeButton.addEventListener('click', closePopup);
 saveButton.addEventListener('click', formSubmitHandler);
-
-
-
-
-
-
-
-
