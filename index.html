@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Проект о путешествии по России">
+  <meta name="author" content="Елена Ядрышникова">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto Russia</title>
+</head>
+
+<body class="page">
+  <div class="content">
+    <header class="header">
+      <img src="./images/logo.svg" class="header__logo" alt="Логотип Mesto Russia">
+    </header>
+    <main>
+      <section class="profile">
+        <div class="profile__container">
+          <img src="./images/avatar.jpg" class="profile__avatar" alt="Фото - Жак-Ив Кусто">
+          <div class="profile__info">
+            <div class="profile__name-container">
+              <h2 class="profile__name">Жак-Ив Кусто</h2>
+              <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
+            </div>
+            <p class="profile__description">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__add-button" type="button" aria-label="Добавить"></button>
+      </section>
+      <section class="elements">
+        <ul class="elements__list">
+          <li class="element">
+            <img class="element__image" src="./images/pic-1.png" alt="Фотография места">
+            <div class="element__container">
+              <h2 class="element__text">Карачевск</h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img class="element__image" src="./images/pic-2.png" alt="Фотография места">
+            <div class="element__container">
+              <h2 class="element__text">Гора Эльбрус</h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img class="element__image" src="./images/pic-3.png" alt="Фотография места">
+            <div class="element__container">
+              <h2 class="element__text">Домбай</h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img class="element__image" src="./images/pic-4.png" alt="Фотография места">
+            <div class="element__container">
+              <h2 class="element__text">Гора Эльбрус</h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img class="element__image" src="./images/pic-5.png" alt="Фотография места">
+            <div class="element__container">
+              <h2 class="element__text">Домбай</h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img class="element__image" src="./images/pic4.png" alt="Фотография места">
+            <div class="element__container">
+              <h2 class="element__text">Текст, который не вмещается в элемент</h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+  </div>
+  <section class="popup popup__background">
+    <div class="popup_container">
+      <button class="popup__close-cross" type="button"></button>
+      <form name="edit-profile" class="popup__form" novalidate>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <label class="popup__field">
+          <input id="name" name="name-input" class="popup__input popup__input_name" placeholder="Ваше имя" required
+            minlength="2" maxlength="40">
+        </label>
+        <label class="popup__field">
+          <input id="about-input" name="about" class="popup__input popup__input_description" placeholder="О себе"
+            required minlength="2" maxlength="200">
+        </label>
+        <button class="popup__submit-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </section>
+  <script src="./scripts/index.js"></script>
+</body>
+
+</html>
