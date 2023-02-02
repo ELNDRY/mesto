@@ -5,13 +5,18 @@ const closeButton = document.querySelector('.popup__close-cross');
 const popup = document.querySelector('.popup');
 
 /* for already existing profile name and description */
-let nameProfile = document.querySelector('.profile__name');
-let descriptionProfile = document.querySelector('.profile__description');
+const nameProfile = document.querySelector('.profile__name');
+const descriptionProfile = document.querySelector('.profile__description');
 /* for name and description from form */
-let nameInput = document.querySelector('.popup__input_type_name');
-let descriptionInput = document.querySelector('.popup__input_type_description');
+const nameInput = document.querySelector('.popup__input_type_name');
+const descriptionInput = document.querySelector('.popup__input_type_description');
 
 const form = document.querySelector('.popup__form');
+
+/* elements */
+const elementsList = document.querySelector(".elements__list");
+const elementTemplate = document.querySelector("#element-template").content.querySelector('.element');
+const element = elementTemplate.querySelector(".element");
 
 /* show popup and get name and description from profile*/
 function showPopup() {
@@ -23,6 +28,34 @@ function showPopup() {
 function closePopup() {
     popup.classList.remove('popup_active');
 }
+
+/* create new card */
+function createCard(link, name) {
+    const newElement = elementTemplate.cloneNode(true);
+    const elementImage = newElement.querySelector(".element__image");
+    const elementText = newElement.querySelector(".element__text");
+    // const elementLike = newElement.querySelector(".element__like");
+    elementImage.src = link;
+    elementImage.alt = `Фотография: ${name}.`;
+    elementText.textContent = name;
+    /*add new card elemennt to the beginning of the section*/
+    return newElement;
+}
+
+/* add new card to the beginning of the cards list */
+function addCard(link, name) {
+    const newCard = createCard(link, name);
+    elementsList.prepend(newCard);
+}
+
+/* create initial cards */
+function createInitCards(initCardsList) {
+    initCardsList.forEach(({ link, name }) => {
+        addCard(link, name);
+    })
+}
+
+createInitCards(initialCards);
 
 /* submit handler */
 function handleFormSubmit(evt) {
