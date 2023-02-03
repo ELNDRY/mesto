@@ -1,11 +1,14 @@
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
+/* popups initialization */
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
+const popupImage = document.querySelector('.popup_type_image');
 
 const closeButtonProfile = popupProfile.querySelector('.popup__close-cross');
 const closeButtonCard = popupAddCard.querySelector('.popup__close-cross');
+const closeButtonImage = popupImage.querySelector('.popup__close-cross');
 
 /* for already existing profile name and description */
 const nameProfile = document.querySelector('.profile__name');
@@ -27,6 +30,10 @@ const cardLink = document.querySelector('.popup__input_type_card-link');
 const elementsList = document.querySelector(".elements__list");
 const elementTemplate = document.querySelector("#element-template").content.querySelector('.element');
 const element = elementTemplate.querySelector(".element");
+
+/* fullscreen image popup */
+const image = document.querySelector('.img-figure__image');
+const imageDescription = document.querySelector('.img-figure__description');
 
 function showPopup(popup) {
     popup.classList.add('popup_active');
@@ -54,6 +61,7 @@ function createCard(link, name) {
     deleteButton.addEventListener('click', () => deleteElement(newElement));
     elementImage.src = link;
     elementImage.alt = `Фотография: ${name}.`;
+    elementImage.addEventListener('click', () => showImage(link, name));
     elementText.textContent = name;
     /*add new card elemennt to the beginning of the section*/
     return newElement;
@@ -78,6 +86,14 @@ function createInitCards(initCardsList) {
 }
 
 createInitCards(initialCards);
+
+function showImage(link, name) {
+    showPopup(popupImage);
+    imageDescription.textContent = name;
+    image.src = link;
+    image.alt = `Фотография: ${name}.`;
+    closeButtonImage.addEventListener('click', () => closePopup(popupImage));
+}
 
 /* toggle like button */
 function likeElement(likeButton) {
