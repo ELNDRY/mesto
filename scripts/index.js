@@ -50,6 +50,8 @@ function createCard(link, name) {
     const elementText = newElement.querySelector('.element__text');
     const likeButton = newElement.querySelector('.element__like');
     likeButton.addEventListener('click', () => likeElement(likeButton));
+    const deleteButton = newElement.querySelector('.element__delete');
+    deleteButton.addEventListener('click', () => deleteElement(newElement));
     elementImage.src = link;
     elementImage.alt = `Фотография: ${name}.`;
     elementText.textContent = name;
@@ -61,6 +63,11 @@ function createCard(link, name) {
 function addCard(link, name) {
     const newCard = createCard(link, name);
     elementsList.prepend(newCard);
+}
+
+/* delete card */
+function deleteElement(element) {
+    element.remove();
 }
 
 /* create initial cards */
