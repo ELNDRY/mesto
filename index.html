@@ -43,14 +43,14 @@
       <button class="popup__close-cross" type="button" aria-label="Закрыть"></button>
       <form name="edit-profile" class="popup__form" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <label class="popup__field">
+        <div class="popup__field">
           <input id="name" name="name-input" class="popup__input popup__input_type_name" placeholder="Ваше имя" required
             minlength="2" maxlength="40">
-        </label>
-        <label class="popup__field">
+        </div>
+        <div class="popup__field">
           <input id="about-input" name="about" class="popup__input popup__input_type_description" placeholder="О себе"
             required minlength="2" maxlength="200">
-        </label>
+        </div>
         <button aria-label="Сохранить" class="popup__submit-button" type="submit">Сохранить</button>
       </form>
     </div>
@@ -60,14 +60,14 @@
       <button aria-label="close" class="popup__close-cross" type="button"></button>
       <form name="add-card" class="popup__form" novalidate>
         <h2 class="popup__title">Новое место</h2>
-        <label class="popup__field">
+        <div class="popup__field">
           <input id="card-name" name="card-name-input" class="popup__input popup__input_type_card-name"
             placeholder="Название" required minlength="2" maxlength="40">
-        </label>
-        <label class="popup__field">
+        </div>
+        <div class="popup__field">
           <input id="card-link" name="card-link" class="popup__input popup__input_type_card-link"
             placeholder="Ссылка на картинку" required minlength="2" maxlength="200">
-        </label>
+        </div>
         <button aria-label="Создать" class="popup__submit-button" type="submit">Создать</button>
       </form>
     </div>
