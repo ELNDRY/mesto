@@ -38,7 +38,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div class="popup popup_type_profile">
     <div class="popup__container">
       <button aria-label="close" class="popup__close-cross" type="button"></button>
       <form name="edit-profile" class="popup__form" novalidate>
@@ -52,6 +52,23 @@
             required minlength="2" maxlength="200">
         </label>
         <button aria-label="submit" class="popup__submit-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_add-card">
+    <div class="popup__container">
+      <button aria-label="close" class="popup__close-cross" type="button"></button>
+      <form name="add-card" class="popup__form" novalidate>
+        <h2 class="popup__title">Новое место</h2>
+        <label class="popup__field">
+          <input id="card-name" name="card-name-input" class="popup__input popup__input_type_card-name"
+            placeholder="Название" required minlength="2" maxlength="40">
+        </label>
+        <label class="popup__field">
+          <input id="card-link" name="card-link" class="popup__input popup__input_type_card-link"
+            placeholder="Ссылка на картинку" required minlength="2" maxlength="200">
+        </label>
+        <button aria-label="submit" class="popup__submit-button" type="submit">Создать</button>
       </form>
     </div>
   </div>
