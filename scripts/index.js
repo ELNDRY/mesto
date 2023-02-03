@@ -46,9 +46,10 @@ function closePopup(popup) {
 /* create new card */
 function createCard(link, name) {
     const newElement = elementTemplate.cloneNode(true);
-    const elementImage = newElement.querySelector(".element__image");
-    const elementText = newElement.querySelector(".element__text");
-    // const elementLike = newElement.querySelector(".element__like");
+    const elementImage = newElement.querySelector('.element__image');
+    const elementText = newElement.querySelector('.element__text');
+    const likeButton = newElement.querySelector('.element__like');
+    likeButton.addEventListener('click', () => likeElement(likeButton));
     elementImage.src = link;
     elementImage.alt = `Фотография: ${name}.`;
     elementText.textContent = name;
@@ -70,6 +71,11 @@ function createInitCards(initCardsList) {
 }
 
 createInitCards(initialCards);
+
+/* toggle like button */
+function likeElement(likeButton) {
+    likeButton.classList.toggle('element__like_active');
+}
 
 /* submit handlers */
 function handleFormSubmitProfile(evt) {
