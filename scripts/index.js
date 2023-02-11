@@ -36,6 +36,8 @@ const imageDescription = document.querySelector('.img-figure__description');
 
 function showPopup(popup) {
     popup.classList.add('popup_active');
+    document.addEventListener('keydown', keyHandler);
+    document.addEventListener('mousedown', clickHandler);
 }
 
 /* show popup and get name and description from profile*/
@@ -47,6 +49,8 @@ function showPopupProfile() {
 
 function closePopup(popup) {
     popup.classList.remove('popup_active');
+    document.removeEventListener('keydown', keyHandler);
+    document.removeEventListener('mousedown', clickHandler);
 }
 
 /* create new card */
@@ -116,6 +120,21 @@ function handleFormSubmitAddCard(evt) {
     evt.target.reset();
 }
 
+/* escape handler */
+function keyHandler(evt) {
+    const popupActive = document.querySelector('.popup_active');
+    if (evt.key === 'Escape') {
+        closePopup(popupActive);
+    }
+}
+
+function clickHandler(evt) {
+    const popupActive = document.querySelector('.popup_active');
+    if (evt.target.matches('.popup_active')) {
+        closePopup(popupActive);
+    }
+}
+
 /*event listeners*/
 /* listeners for buttons */
 buttonEdit.addEventListener('click', showPopupProfile);
@@ -135,8 +154,8 @@ elementsContainer.addEventListener('click', function (evt) {
 /* delete card */
 elementsContainer.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('element__delete')) {
-        let target = evt.target;
-        let parent = target.parentElement;
+        const target = evt.target;
+        const parent = target.parentElement;
         parent.remove();
     }
 })
