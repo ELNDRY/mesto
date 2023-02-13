@@ -5,6 +5,7 @@ const buttonAdd = document.querySelector('.profile__add-button');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
+const popupList = document.querySelectorAll('.popup');
 
 /* all close buttons */
 const buttonCloseList = document.querySelectorAll('.popup__close-cross');
@@ -37,7 +38,6 @@ const imageDescription = document.querySelector('.img-figure__description');
 function showPopup(popup) {
     popup.classList.add('popup_active');
     document.addEventListener('keydown', keyHandler);
-    document.addEventListener('mousedown', clickHandler);
 }
 
 /* show popup and get name and description from profile*/
@@ -50,7 +50,7 @@ function showPopupProfile() {
 function closePopup(popup) {
     popup.classList.remove('popup_active');
     document.removeEventListener('keydown', keyHandler);
-    document.removeEventListener('mousedown', clickHandler);
+    // document.removeEventListener('mousedown', clickHandler);
 }
 
 /* create new card */
@@ -125,24 +125,28 @@ function handleFormSubmitAddCard(evt) {
     addCard(elementData);
     closePopup(popupAddCard);
     evt.target.reset();
+    evt.submitter.classList.add('popup__submit-button_disabled');
+    evt.submitter.disabled = true;
 }
 
 /* escape handler */
 function keyHandler(evt) {
-    const popupActive = document.querySelector('.popup_active');
     if (evt.key === 'Escape') {
+        const popupActive = document.querySelector('.popup_active');
         closePopup(popupActive);
     }
 }
 
 function clickHandler(evt) {
-    const popupActive = document.querySelector('.popup_active');
-    if (evt.target.matches('.popup_active')) {
-        closePopup(popupActive);
+    if (evt.target.classList.contains('popup_active')) {
+        closePopup(evt.target);
     }
 }
 
 /*event listeners*/
+
+popupList.forEach(popup => popup.addEventListener('mousedown', clickHandler));
+
 /* listeners for buttons */
 buttonEdit.addEventListener('click', showPopupProfile);
 
