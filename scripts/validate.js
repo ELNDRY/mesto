@@ -12,12 +12,7 @@ const validationSettings = {
 function enableValidation(validationSettings) {
     const formList = Array.from(document.querySelectorAll(validationSettings.formSelector));
     formList.forEach((formElement) => {
-        formElement.addEventListener('submit', function (evt) {
-            evt.preventDefault();
-        });
-
         setEventListeners(validationSettings, formElement);
-
     });
 };
 

@@ -5,6 +5,7 @@ const buttonAdd = document.querySelector('.profile__add-button');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
+const popupList = document.querySelectorAll('.popup');
 
 /* all close buttons */
 const buttonCloseList = document.querySelectorAll('.popup__close-cross');
@@ -37,7 +38,6 @@ const imageDescription = document.querySelector('.img-figure__description');
 function showPopup(popup) {
     popup.classList.add('popup_active');
     document.addEventListener('keydown', keyHandler);
-    document.addEventListener('mousedown', clickHandler);
 }
 
 /* show popup and get name and description from profile*/
@@ -50,7 +50,7 @@ function showPopupProfile() {
 function closePopup(popup) {
     popup.classList.remove('popup_active');
     document.removeEventListener('keydown', keyHandler);
-    document.removeEventListener('mousedown', clickHandler);
+    // document.removeEventListener('mousedown', clickHandler);
 }
 
 /* create new card */
@@ -58,6 +58,13 @@ function createCard(elementData) {
     const newElement = elementTemplate.cloneNode(true);
     const elementImage = newElement.querySelector('.element__image');
     const elementText = newElement.querySelector('.element__text');
+
+    /* like and delete buttons listeners */
+    const buttonLike = newElement.querySelector('.element__like');
+    buttonLike.addEventListener('click', () => likeElement(buttonLike));
+    const buttonDelete = newElement.querySelector('.element__delete');
+    buttonDelete.addEventListener('click', () => deleteElement(newElement));
+
     elementImage.src = elementData.link;
     elementImage.alt = `Фотография: ${elementData.name}.`;
     elementImage.addEventListener('click', () => showImage(elementData));
@@ -75,6 +82,11 @@ function addCard(elementData) {
 /* delete card */
 function deleteElement(element) {
     element.remove();
+}
+
+/* toggle like button */
+function likeElement(likeButton) {
+    likeButton.classList.toggle('element__like_active');
 }
 
 /* create initial cards */
@@ -96,11 +108,6 @@ function showImage(elementData) {
     image.alt = `Фотография: ${elementData.name}.`;
 }
 
-/* toggle like button */
-function likeElement(likeButton) {
-    likeButton.classList.toggle('element__like_active');
-}
-
 /* submit handlers */
 function handleFormSubmitProfile(evt) {
     evt.preventDefault();
@@ -118,46 +125,34 @@ function handleFormSubmitAddCard(evt) {
     addCard(elementData);
     closePopup(popupAddCard);
     evt.target.reset();
+    evt.submitter.classList.add('popup__submit-button_disabled');
+    evt.submitter.disabled = true;
 }
 
 /* escape handler */
 function keyHandler(evt) {
-    const popupActive = document.querySelector('.popup_active');
     if (evt.key === 'Escape') {
+        const popupActive = document.querySelector('.popup_active');
         closePopup(popupActive);
     }
 }
 
 function clickHandler(evt) {
-    const popupActive = document.querySelector('.popup_active');
-    if (evt.target.matches('.popup_active')) {
-        closePopup(popupActive);
+    if (evt.target.classList.contains('popup_active')) {
+        closePopup(evt.target);
     }
 }
 
 /*event listeners*/
+
+popupList.forEach(popup => popup.addEventListener('mousedown', clickHandler));
+
 /* listeners for buttons */
 buttonEdit.addEventListener('click', showPopupProfile);
 
 buttonCloseList.forEach(btn => {
     const popup = btn.closest('.popup');
     btn.addEventListener('click', () => closePopup(popup));
-})
-
-/* like toggle */
-elementsContainer.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('element__like')) {
-        evt.target.classList.toggle('element__like_active');
-    }
-})
-
-/* delete card */
-elementsContainer.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('element__delete')) {
-        const target = evt.target;
-        const parent = target.parentElement;
-        parent.remove();
-    }
 })
 
 buttonAdd.addEventListener('click', () => showPopup(popupAddCard));
