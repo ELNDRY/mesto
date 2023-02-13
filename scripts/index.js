@@ -58,6 +58,13 @@ function createCard(elementData) {
     const newElement = elementTemplate.cloneNode(true);
     const elementImage = newElement.querySelector('.element__image');
     const elementText = newElement.querySelector('.element__text');
+
+    /* like and delete buttons listeners */
+    const buttonLike = newElement.querySelector('.element__like');
+    buttonLike.addEventListener('click', () => likeElement(buttonLike));
+    const buttonDelete = newElement.querySelector('.element__delete');
+    buttonDelete.addEventListener('click', () => deleteElement(newElement));
+
     elementImage.src = elementData.link;
     elementImage.alt = `Фотография: ${elementData.name}.`;
     elementImage.addEventListener('click', () => showImage(elementData));
@@ -77,6 +84,11 @@ function deleteElement(element) {
     element.remove();
 }
 
+/* toggle like button */
+function likeElement(likeButton) {
+    likeButton.classList.toggle('element__like_active');
+}
+
 /* create initial cards */
 function createInitCards(initCardsList) {
     initCardsList.forEach(({ link, name }) => {
@@ -94,11 +106,6 @@ function showImage(elementData) {
     imageDescription.textContent = elementData.name;
     image.src = elementData.link;
     image.alt = `Фотография: ${elementData.name}.`;
-}
-
-/* toggle like button */
-function likeElement(likeButton) {
-    likeButton.classList.toggle('element__like_active');
 }
 
 /* submit handlers */
@@ -142,22 +149,6 @@ buttonEdit.addEventListener('click', showPopupProfile);
 buttonCloseList.forEach(btn => {
     const popup = btn.closest('.popup');
     btn.addEventListener('click', () => closePopup(popup));
-})
-
-/* like toggle */
-elementsContainer.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('element__like')) {
-        evt.target.classList.toggle('element__like_active');
-    }
-})
-
-/* delete card */
-elementsContainer.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('element__delete')) {
-        const target = evt.target;
-        const parent = target.parentElement;
-        parent.remove();
-    }
 })
 
 buttonAdd.addEventListener('click', () => showPopup(popupAddCard));
