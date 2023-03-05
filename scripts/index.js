@@ -1,5 +1,6 @@
 import { Card } from "./Card.js";
-import { initialCards } from "./initCards.js";
+import { initialCards, validationSettings } from "./Constants.js";
+import { FormValidator } from "./FormValidator.js";
 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -37,6 +38,9 @@ const element = elementTemplate.querySelector(".element");
 /* fullscreen image popup */
 const image = document.querySelector('.img-figure__image');
 const imageDescription = document.querySelector('.img-figure__description');
+
+const formProfileValidator = new FormValidator(validationSettings, formProfile);
+const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
 
 function showPopup(popup) {
     popup.classList.add('popup_active');
@@ -121,6 +125,10 @@ function clickHandler(evt) {
         closePopup(evt.target);
     }
 }
+
+/* enable validation */
+formProfileValidator.enableValidation();
+formAddCardValidator.enableValidation();
 
 /*event listeners*/
 
