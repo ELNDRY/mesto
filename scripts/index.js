@@ -1,3 +1,6 @@
+import { Card } from "./Card.js";
+import { initialCards } from "./initCards.js";
+
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
@@ -55,38 +58,14 @@ function closePopup(popup) {
 
 /* create new card */
 function createCard(elementData) {
-    const newElement = elementTemplate.cloneNode(true);
-    const elementImage = newElement.querySelector('.element__image');
-    const elementText = newElement.querySelector('.element__text');
-
-    /* like and delete buttons listeners */
-    const buttonLike = newElement.querySelector('.element__like');
-    buttonLike.addEventListener('click', () => likeElement(buttonLike));
-    const buttonDelete = newElement.querySelector('.element__delete');
-    buttonDelete.addEventListener('click', () => deleteElement(newElement));
-
-    elementImage.src = elementData.link;
-    elementImage.alt = `Фотография: ${elementData.name}.`;
-    elementImage.addEventListener('click', () => showImage(elementData));
-    elementText.textContent = elementData.name;
-    /*add new card elemennt to the beginning of the section*/
-    return newElement;
+    const newElement = new Card(elementData, elementTemplate, showImage)
+    return newElement.createElement();
 }
 
 /* add new card to the beginning of the cards list */
 function addCard(elementData) {
     const newCard = createCard(elementData);
     elementsContainer.prepend(newCard);
-}
-
-/* delete card */
-function deleteElement(element) {
-    element.remove();
-}
-
-/* toggle like button */
-function likeElement(likeButton) {
-    likeButton.classList.toggle('element__like_active');
 }
 
 /* create initial cards */
@@ -159,5 +138,3 @@ buttonAdd.addEventListener('click', () => showPopup(popupAddCard));
 /* submit listeners */
 formProfile.addEventListener('submit', handleFormSubmitProfile);
 formAddCard.addEventListener('submit', handleFormSubmitAddCard);
-
-
