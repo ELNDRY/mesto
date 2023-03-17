@@ -51,14 +51,26 @@ export class FormValidator {
         return (this._inputList.some((inputElement) => !inputElement.validity.valid));
     };
 
+    _disableButton() {
+        this._buttonElement.classList.add(this._validationSettings.inactiveButtonClass);
+        this._buttonElement.disabled = true;
+    }
+
+    _enableButton() {
+        this._buttonElement.classList.remove(this._validationSettings.inactiveButtonClass);
+        this._buttonElement.disabled = false;
+    }
+
+    resetForm() {
+        this._disableButton();
+    }
+
     /* change button activity and appearance */
     _toggleButtonState() {
         if (this._hasInvalidInput()) {
-            this._buttonElement.classList.add(this._validationSettings.inactiveButtonClass);
-            this._buttonElement.disabled = true;
+            this._disableButton();
         } else {
-            this._buttonElement.classList.remove(this._validationSettings.inactiveButtonClass);
-            this._buttonElement.disabled = false;
+            this._enableButton();
         }
     };
 }
