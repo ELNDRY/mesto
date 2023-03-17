@@ -93,6 +93,7 @@ function handleFormSubmitProfile(evt) {
     profileDescription.textContent = profileDescriptionInput.value;
     formProfileValidator.resetForm();
     closePopup(popupProfile);
+    evt.target.reset();
 }
 
 function handleFormSubmitAddCard(evt) {
