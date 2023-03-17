@@ -91,6 +91,7 @@ function handleFormSubmitProfile(evt) {
     evt.preventDefault();
     profileName.textContent = profileNameInput.value;
     profileDescription.textContent = profileDescriptionInput.value;
+    formProfileValidator.resetForm();
     closePopup(popupProfile);
 }
 
@@ -101,6 +102,7 @@ function handleFormSubmitAddCard(evt) {
         link: cardLink.value
     }
     addCard(cardData);
+    formAddCardValidator.resetForm();
     closePopup(popupAddCard);
     evt.target.reset();
 }
