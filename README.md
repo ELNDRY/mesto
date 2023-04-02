@@ -14,3 +14,5 @@ The project is organized according to the classical scheme of the file structure
 * Flexbox layout
 * Responsive layout (Example of using grids)
 * JavaScript
+* OOP
+* Webpack
