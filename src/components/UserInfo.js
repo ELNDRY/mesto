@@ -6,8 +6,8 @@ export class UserInfo {
 
     getUserInfo() {
         const userInfo = {
-            name: this._profileName.textContext,
-            job: this._profileJob.textContext
+            name: this._profileName.textContent,
+            job: this._profileJob.textContent
         }
         return userInfo;
     }

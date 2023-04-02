@@ -1,7 +1,5 @@
 export class Card {
     constructor(elementData, elementTemplate, handleCardClick) {
-        this._name = elementData.name;
-        this._link = elementData.link;
         this._elementTemplate = elementTemplate;
         this._handleCardClick = handleCardClick;
         this._data = elementData;
@@ -9,10 +7,10 @@ export class Card {
 
     createElement() {
         this._element = document.querySelector(this._elementTemplate).content.querySelector('.element').cloneNode(true);
-        this._element.querySelector('.element__text').textContent = this._name;
+        this._element.querySelector('.element__text').textContent = this._data.name;
         this._image = this._element.querySelector('.element__image');
-        this._image.src = this._link;
-        this._image.alt = `Фотография: ${this._name}.`;
+        this._image.src = this._data.link;
+        this._image.alt = `Фотография: ${this._data.name}.`;
         this._buttonLike = this._element.querySelector('.element__like');
         this._buttonDelete = this._element.querySelector('.element__delete');
         this._addEventListeners();

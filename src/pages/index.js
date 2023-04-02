@@ -25,9 +25,6 @@ import { UserInfo } from "../components/UserInfo.js";
 
 import "./index.css";
 
-const profileName = document.querySelector(profileNameSelector);
-const profileJob = document.querySelector(profileJobSelector);
-
 const formProfileValidator = new FormValidator(validationSettings, formProfileSelector);
 const formAddCardValidator = new FormValidator(validationSettings, formAddCardSelector);
 
@@ -41,31 +38,26 @@ const createCard = (cardData) => {
 
 const resetProfileForm = () => {
     formProfileValidator.resetForm();
-    popupEditProfile.reset();
 }
 
 const resetAddCardForm = () => {
     formAddCardValidator.resetForm();
-    popupAddCard.reset();
 }
 
 /* submit handlers */
-const handleFormSubmitProfile = (evt, userData) => {
-    evt.preventDefault();
+const handleFormSubmitProfile = (userData) => {
     userInfo.setUserInfo(userData)
-    popupEditProfile.close();
 }
 
-const handleFormSubmitAddCard = (evt, cardData) => {
-    evt.preventDefault();
+const handleFormSubmitAddCard = (cardData) => {
     createCard(cardData)
-    popupAddCard.close();
 }
 
 
-function getProfileInfo() {
-    profileNameInput.value = profileName.textContent;
-    profileDescriptionInput.value = profileJob.textContent;
+function fillProfileInfo() {
+    const inputsValue = userInfo.getUserInfo();
+    profileNameInput.value = inputsValue.name;
+    profileDescriptionInput.value = inputsValue.job;
 }
 
 /* enable validation */
@@ -75,7 +67,7 @@ formAddCardValidator.enableValidation();
 /* buttons listeners */
 buttonEdit.addEventListener('click', () => {
     popupEditProfile.open();
-    getProfileInfo()
+    fillProfileInfo()
 });
 
 buttonAdd.addEventListener('click', () => popupAddCard.open());
