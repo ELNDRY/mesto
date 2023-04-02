@@ -1,16 +1,15 @@
 export class Card {
-    constructor(elementData, elementTemplate, showImage) {
+    constructor(elementData, elementTemplate, handleCardClick) {
         this._name = elementData.name;
         this._link = elementData.link;
         this._elementTemplate = elementTemplate;
-        this._showImage = showImage;
+        this._handleCardClick = handleCardClick;
         this._data = elementData;
     }
 
     createElement() {
-        this._element = this._elementTemplate.cloneNode(true);
+        this._element = document.querySelector(this._elementTemplate).content.querySelector('.element').cloneNode(true);
         this._element.querySelector('.element__text').textContent = this._name;
-        // поправить кучу пробегов до селектора картинки 
         this._image = this._element.querySelector('.element__image');
         this._image.src = this._link;
         this._image.alt = `Фотография: ${this._name}.`;
@@ -25,7 +24,7 @@ export class Card {
         this._buttonLike.addEventListener('click', () => this._likeElement())
         this._buttonDelete.addEventListener('click', () => this._deleteElement());
         this._image.addEventListener('click', () => {
-            this._showImage(this._data);
+            this._handleCardClick(this._data);
         })
     }
 
