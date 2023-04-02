@@ -20,11 +20,9 @@ export class FormValidator {
         });
     };
 
-
     _setErrorMessage(inputElement, errorMessage) {
         this._errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
         this._errorElement.textContent = errorMessage;
-        console.log(this._errorElement);
     };
 
     /* show and hide input error */
@@ -34,7 +32,6 @@ export class FormValidator {
     };
 
     _hideInputError(inputElement) {
-        console.log(inputElement);
         inputElement.classList.remove(this._validationSettings.inputErrorClass);
         this._setErrorMessage(inputElement, '');
     };

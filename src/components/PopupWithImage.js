@@ -8,7 +8,6 @@ export class PopupWithImage extends Popup {
     }
 
     open(cardData) {
-        console.log(this._popupElement)
         this._textElement.textContent = cardData.name;
         this._imageElement.src = cardData.link;
         this._imageElement.alt = `Фотография: ${cardData.name}.`;
