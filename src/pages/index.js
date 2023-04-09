@@ -1,4 +1,3 @@
-import { Card } from "../components/Card.js";
 import {
     initialCards,
     validationSettings,
@@ -14,16 +13,21 @@ import {
     cardsContainerSelector,
     cardTemplate,
     profileNameInput,
-    profileDescriptionInput
+    profileDescriptionInput,
+    apiOptions
 } from "../utils/constants.js";
 
+import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
 import { PopupWithForms } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api.js";
 
 import "./index.css";
+
+const api = new Api(apiOptions);
 
 const formProfileValidator = new FormValidator(validationSettings, formProfileSelector);
 const formAddCardValidator = new FormValidator(validationSettings, formAddCardSelector);
