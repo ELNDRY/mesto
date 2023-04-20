@@ -7,8 +7,6 @@ import {
     popupImageSelector,
     profileNameSelector,
     profileJobSelector,
-    formProfileSelector,
-    formAddCardSelector,
     cardsContainerSelector,
     cardTemplate,
     profileNameInput,
@@ -18,7 +16,6 @@ import {
     profileAvatarSelector,
     popupEditAvatarSelector,
     overlayAvatar,
-    formEditAvatarSelector
 } from "../utils/constants.js";
 
 import { Card } from "../components/Card.js";
@@ -34,11 +31,22 @@ import "./index.css";
 
 const api = new Api(apiOptions);
 
-/* form validators and user info initialization */
+/* user info initialization */
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector, profileAvatarSelector });
-const formProfileValidator = new FormValidator(validationSettings, formProfileSelector);
-const formAddCardValidator = new FormValidator(validationSettings, formAddCardSelector);
-const formEditAvatarValidator = new FormValidator(validationSettings, formEditAvatarSelector);
+const formValidators = {}
+/* form validators initialization and enable validation */
+const enableValidation = (config) => {
+    const formList = Array.from(document.querySelectorAll(`${config.formSelector}:not(.popup__form_confirm)`))
+    formList.forEach((formElement) => {
+        const validator = new FormValidator(config, formElement);
+        // get data from the `name` attribute of the form
+        const formName = formElement.getAttribute('name');
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    });
+};
+
+enableValidation(validationSettings);
 
 /* create new card */
 const createCard = (cardData) => {
@@ -69,37 +77,52 @@ const likeCard = (card) => {
 }
 
 /* submit handlers */
-const handleFormSubmitProfile = (userData) => {
-    popupEditProfile.renderSubmitText(true);
-    api.editUserInfo(userData)
-        .then((userData) => {
-            userInfo.setUserInfo(userData);
-            popupEditProfile.close();
+/* universal function that accepts a request function and a popup instance */
+function handleSubmit(request, popupInstance) {
+    popupInstance.renderSubmitText(true);
+    request()
+        .then(() => {
+            popupInstance.close()
         })
-        .catch((error) => console.log(error))
-        .finally(() => popupEditProfile.renderSubmitText(false));
+        .catch((err) => {
+            console.error(`Ошибка: ${err}`);
+        })
+        .finally(() => {
+            popupInstance.renderSubmitText(false);
+        });
+}
+
+const handleFormSubmitProfile = (userData) => {
+    function makeRequest() {
+        return api.editUserInfo(userData)
+            .then((userData) => {
+                userInfo.setUserInfo(userData);
+            });
+    }
+
+    handleSubmit(makeRequest, popupEditProfile);
 }
 
 const handleFormSubmitAddCard = (cardData) => {
-    popupAddCard.renderSubmitText(true);
-    api.addCard(cardData)
-        .then((data) => {
-            cardsContainer.addItem(data)
-            popupAddCard.close();
-        })
-        .catch((error) => console.log(error))
-        .finally(() => popupAddCard.renderSubmitText(false));
+    function makeRequest() {
+        return api.addCard(cardData)
+            .then((data) => {
+                cardsContainer.addItem(data)
+            })
+    }
+
+    handleSubmit(makeRequest, popupAddCard);
 }
 
 const handleFormSubmitEditAvatar = (avatar) => {
-    popupEditAvatar.renderSubmitText(true);
-    api.editUserAvatar(avatar)
-        .then((data) => {
-            userInfo.setUserAvatar(data)
-            popupEditAvatar.close();
-        })
-        .catch((error) => console.log(error))
-        .finally(() => popupEditAvatar.renderSubmitText(false));
+    function makeRequest() {
+        return api.editUserAvatar(avatar)
+            .then((data) => {
+                userInfo.setUserAvatar(data)
+            })
+    }
+
+    handleSubmit(makeRequest, popupEditAvatar);
 }
 
 const handleConfirm = (card) => {
@@ -111,21 +134,10 @@ const handleConfirm = (card) => {
         .catch((error) => console.log(error))
 }
 
-function fillProfileInfo() {
-    const inputsValue = userInfo.getUserInfo();
-    profileNameInput.value = inputsValue.name;
-    profileDescriptionInput.value = inputsValue.job;
-}
-
-/* enable validation */
-formProfileValidator.enableValidation();
-formAddCardValidator.enableValidation();
-formEditAvatarValidator.enableValidation();
-
 /* buttons listeners */
 buttonEdit.addEventListener('click', () => {
-    popupEditProfile.open();
-    fillProfileInfo()
+    console.log(userInfo.getUserInfo());
+    popupEditProfile.open(userInfo.getUserInfo());
 });
 buttonAdd.addEventListener('click', () => popupAddCard.open());
 overlayAvatar.addEventListener('click', () => popupEditAvatar.open());
@@ -134,13 +146,13 @@ overlayAvatar.addEventListener('click', () => popupEditAvatar.open());
 const popupWithImage = new PopupWithImage(popupImageSelector);
 popupWithImage.setEventListeners();
 
-const popupEditProfile = new PopupWithForms(popupProfileSelector, handleFormSubmitProfile, () => formProfileValidator.resetForm());
+const popupEditProfile = new PopupWithForms(popupProfileSelector, handleFormSubmitProfile, () => formValidators['edit-profile'].resetForm());
 popupEditProfile.setEventListeners();
 
-const popupAddCard = new PopupWithForms(popupAddCardSelector, handleFormSubmitAddCard, () => formAddCardValidator.resetForm());
+const popupAddCard = new PopupWithForms(popupAddCardSelector, handleFormSubmitAddCard, () => formValidators['edit-avatar'].resetForm());
 popupAddCard.setEventListeners();
 
-const popupEditAvatar = new PopupWithForms(popupEditAvatarSelector, handleFormSubmitEditAvatar, () => formEditAvatarValidator.resetForm());
+const popupEditAvatar = new PopupWithForms(popupEditAvatarSelector, handleFormSubmitEditAvatar, () => formValidators['add-card'].resetForm());
 popupEditAvatar.setEventListeners();
 
 const popupWithConfirmation = new PopupWithConfirmation(popupConfirmSelector, handleConfirm);

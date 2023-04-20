@@ -19,6 +19,12 @@ export class PopupWithForms extends Popup {
         return inputValues;
     }
 
+    _setInputValues(data) {
+        console.log(this._inputList);
+        this._inputList.forEach((input) => {
+            input.value = data[input.name];
+        });
+    }
 
     renderSubmitText(isSubmiting) {
         if (isSubmiting) {
@@ -33,8 +39,14 @@ export class PopupWithForms extends Popup {
         this._popupElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._handleFormSubmit(this._getInputValues());
-            this.close();
         });
+    }
+
+    open(input) {
+        if (input) {
+            this._setInputValues(input);
+        }
+        super.open();
     }
 
     close() {

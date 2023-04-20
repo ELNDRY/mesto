@@ -34,11 +34,6 @@ export const profileAvatarSelector = '.profile__avatar';
 export const profileNameInput = document.querySelector('.popup__input_type_name');
 export const profileDescriptionInput = document.querySelector('.popup__input_type_description');
 
-/* forms selectors */
-export const formProfileSelector = '.popup__form_profile';
-export const formAddCardSelector = '.popup__form_add-card';
-export const formEditAvatarSelector = '.popup__form_avatar';
-
 /* cards selectors */
 export const cardsContainerSelector = '.elements__list';
 export const cardTemplate = '#element-template';
