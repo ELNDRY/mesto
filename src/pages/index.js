@@ -33,6 +33,8 @@ import { Api } from "../components/Api.js";
 import "./index.css";
 
 const api = new Api(apiOptions);
+
+/* form validators and user info initialization */
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector, profileAvatarSelector });
 const formProfileValidator = new FormValidator(validationSettings, formProfileSelector);
 const formAddCardValidator = new FormValidator(validationSettings, formAddCardSelector);
@@ -47,7 +49,7 @@ const createCard = (cardData) => {
         () => popupWithImage.open(cardData),
         deleteCard,
         likeCard);
-        return newElement.createElement();
+    return newElement.createElement();
 }
 
 const deleteCard = (card) => {
@@ -64,19 +66,6 @@ const likeCard = (card) => {
             .then((data) => card.likeElement(data.likes))
             .catch((error) => console.log(error));
     }
-}
-
-
-const resetProfileForm = () => {
-    formProfileValidator.resetForm();
-}
-
-const resetAddCardForm = () => {
-    formAddCardValidator.resetForm();
-}
-
-const resetEditAvatarForm = () => {
-    formEditAvatarValidator.resetForm();
 }
 
 /* submit handlers */
@@ -122,48 +111,44 @@ const handleConfirm = (card) => {
         .catch((error) => console.log(error))
 }
 
-
 function fillProfileInfo() {
     const inputsValue = userInfo.getUserInfo();
     profileNameInput.value = inputsValue.name;
     profileDescriptionInput.value = inputsValue.job;
 }
 
-
 /* enable validation */
 formProfileValidator.enableValidation();
 formAddCardValidator.enableValidation();
 formEditAvatarValidator.enableValidation();
-
 
 /* buttons listeners */
 buttonEdit.addEventListener('click', () => {
     popupEditProfile.open();
     fillProfileInfo()
 });
-
 buttonAdd.addEventListener('click', () => popupAddCard.open());
-
 overlayAvatar.addEventListener('click', () => popupEditAvatar.open());
 
+/* popups initialization */
 const popupWithImage = new PopupWithImage(popupImageSelector);
 popupWithImage.setEventListeners();
 
-const popupEditProfile = new PopupWithForms(popupProfileSelector, handleFormSubmitProfile, resetProfileForm);
+const popupEditProfile = new PopupWithForms(popupProfileSelector, handleFormSubmitProfile, () => formProfileValidator.resetForm());
 popupEditProfile.setEventListeners();
 
-const popupAddCard = new PopupWithForms(popupAddCardSelector, handleFormSubmitAddCard, resetAddCardForm);
+const popupAddCard = new PopupWithForms(popupAddCardSelector, handleFormSubmitAddCard, () => formAddCardValidator.resetForm());
 popupAddCard.setEventListeners();
 
-const popupEditAvatar = new PopupWithForms(popupEditAvatarSelector, handleFormSubmitEditAvatar, resetEditAvatarForm);
+const popupEditAvatar = new PopupWithForms(popupEditAvatarSelector, handleFormSubmitEditAvatar, () => formEditAvatarValidator.resetForm());
 popupEditAvatar.setEventListeners();
 
 const popupWithConfirmation = new PopupWithConfirmation(popupConfirmSelector, handleConfirm);
 popupWithConfirmation.setEventListeners();
 
-/* create initial cards */
 const cardsContainer = new Section(createCard, cardsContainerSelector);
 
+/* receiving user's info and cards from the server */
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([info, initialCards]) => {
         userInfo.setUserInfo(info);

@@ -6,10 +6,6 @@ export class FormValidator {
         this._buttonElement = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
     }
 
-    enableValidation() {
-        this._setEventListeners();
-    };
-
     _setEventListeners() {
         this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
@@ -60,11 +56,6 @@ export class FormValidator {
         this._buttonElement.disabled = false;
     }
 
-    resetForm() {
-        this._inputList.forEach(inputElement => this._hideInputError(inputElement));
-        this._disableButton();
-    }
-
     /* change button activity and appearance */
     _toggleButtonState() {
         if (this._hasInvalidInput()) {
@@ -73,4 +64,14 @@ export class FormValidator {
             this._enableButton();
         }
     };
+
+    resetForm() {
+        this._inputList.forEach(inputElement => this._hideInputError(inputElement));
+        this._disableButton();
+    }
+
+    enableValidation() {
+        this._setEventListeners();
+    };
+
 }
