@@ -6,33 +6,6 @@ export const apiOptions = {
     }
 }
 
-export const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
 export const validationSettings = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -44,15 +17,19 @@ export const validationSettings = {
 
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
+export const overlayAvatar = document.querySelector('.profile__avatar-overlay');
 
 /* popups selectors */
-export const popupProfileSelector ='.popup_type_profile';
+export const popupProfileSelector = '.popup_type_profile';
 export const popupAddCardSelector = '.popup_type_add-card';
 export const popupImageSelector = '.popup_type_image';
+export const popupConfirmSelector = '.popup_type_confirm';
+export const popupEditAvatarSelector = '.popup_type_avatar';
 
 /* for already existing profile name and description */
 export const profileNameSelector = '.profile__name';
 export const profileJobSelector = '.profile__description';
+export const profileAvatarSelector = '.profile__avatar';
 
 export const profileNameInput = document.querySelector('.popup__input_type_name');
 export const profileDescriptionInput = document.querySelector('.popup__input_type_description');
@@ -60,6 +37,7 @@ export const profileDescriptionInput = document.querySelector('.popup__input_typ
 /* forms selectors */
 export const formProfileSelector = '.popup__form_profile';
 export const formAddCardSelector = '.popup__form_add-card';
+export const formEditAvatarSelector = '.popup__form_avatar';
 
 /* cards selectors */
 export const cardsContainerSelector = '.elements__list';
