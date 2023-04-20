@@ -39,6 +39,7 @@
 .popup__input-error{box-sizing:border-box;color:red;display:block;font-size:12px;font-weight:400;height:25px;line-height:15px;margin:5px 0 0;padding:0}
 .popup__submit-button_disabled{background-color:transparent;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.2);cursor:default}
 .popup__input_invalid{border-bottom:1px solid red}
+.popup__title_confirm{margin-bottom:16px}
 .popup_type_image{background:rgba(0,0,0,.9)}
 .img-figure{margin:0}
 .img-figure__image{background-color:#000;max-height:75vh;max-width:75vw;-o-object-fit:cover;object-fit:cover}
