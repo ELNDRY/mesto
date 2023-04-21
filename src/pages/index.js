@@ -149,10 +149,10 @@ popupWithImage.setEventListeners();
 const popupEditProfile = new PopupWithForms(popupProfileSelector, handleFormSubmitProfile, () => formValidators['edit-profile'].resetForm());
 popupEditProfile.setEventListeners();
 
-const popupAddCard = new PopupWithForms(popupAddCardSelector, handleFormSubmitAddCard, () => formValidators['edit-avatar'].resetForm());
+const popupAddCard = new PopupWithForms(popupAddCardSelector, handleFormSubmitAddCard, () => formValidators['add-card'].resetForm());
 popupAddCard.setEventListeners();
 
-const popupEditAvatar = new PopupWithForms(popupEditAvatarSelector, handleFormSubmitEditAvatar, () => formValidators['add-card'].resetForm());
+const popupEditAvatar = new PopupWithForms(popupEditAvatarSelector, handleFormSubmitEditAvatar, () => formValidators['edit-avatar'].resetForm());
 popupEditAvatar.setEventListeners();
 
 const popupWithConfirmation = new PopupWithConfirmation(popupConfirmSelector, handleConfirm);
